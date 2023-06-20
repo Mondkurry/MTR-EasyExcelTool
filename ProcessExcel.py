@@ -4,6 +4,11 @@ from openpyxl import load_workbook
 from openpyxl.styles import PatternFill, Alignment
 import numpy as np
 
+def print_array(input_array):
+  	for row in input_array:
+    		print(row)
+                
+
 def populate_array_from_excel(file_path, sheet_name):
     # Load the workbook
     wb = openpyxl.load_workbook(file_path)
@@ -23,7 +28,7 @@ def extract_columns(input_array, check_columns):
     output_array = []
     
     for row in input_array:
-        output_row = [row[index+1] for index in check_columns]
+        output_row = [row[index] for index in check_columns]
         output_array.append(output_row)
 
     return output_array
@@ -75,8 +80,6 @@ def update_input_sheet(file_path, sheet_name, array):
         sheet = wb.create_sheet(title=sheet_name)
         print(2)
 
-
-
     # Add the array values to the sheet
     for row in array:
         sheet.append(row)
@@ -125,5 +128,3 @@ def process_and_update_userinput_sheet(file_path, default_sheet_name, userinput_
                        ProcessedState_InputSheet)
     
     reformat_excel_sheet(file_path, userinput_sheet_name)
-
-
