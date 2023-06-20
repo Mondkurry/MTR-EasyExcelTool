@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import openpyxl
-from openpyxl.utils import get_column_letter
+from openpyxl.styles import PatternFill, Alignment
 from ProcessExcel import process_array
 import numpy as np
 from array import *
@@ -13,13 +13,45 @@ def print_array(input_array):
         print(row)
 
 
+def reformat_sheet(file_path, sheet_name):
+    wb = openpyxl.load_workbook(file_path)
+    sheet = wb[sheet_name]
+
+    # Set light blue color to the first row
+    first_row = sheet[1]
+    for cell in first_row:
+        cell.fill = PatternFill(start_color="BFEFFF", end_color="BFEFFF", fill_type="solid")
+
+    # Center all text in cells
+    for row in sheet.iter_rows(min_row=1):
+        for cell in row:
+            cell.alignment = Alignment(horizontal='center', vertical='center')
+
+    # Adjust column widths to fit cell contents
+    for column in sheet.columns:
+        max_length = 0
+        column_letter = column[0].column_letter
+        for cell in column:
+            try:
+                if len(str(cell.value)) > max_length:
+                    max_length = len(str(cell.value))
+            except TypeError:
+                pass
+        adjusted_width = (max_length + 2) * 1.2
+        sheet.column_dimensions[column_letter].width = adjusted_width
+
+    # Save the workbook
+    wb.save(file_path)
+
+
 def update_input_sheet(file_path, sheet_name, array):
     wb = openpyxl.load_workbook(file_path)
 
     if sheet_name in wb.sheetnames:
         sheet = wb[sheet_name]
     else:
-        sheet = wb.create_sheet(title=sheet_name)
+        wb.create_sheet(title=sheet_name)
+        sheet = wb[sheet_name]
         
     # Clear previous data in the sheet
     sheet.delete_rows(1, sheet.max_row)
@@ -27,7 +59,8 @@ def update_input_sheet(file_path, sheet_name, array):
     # Add the array values to the sheet
     for row in array:
         sheet.append(row)
-
+    
+    reformat_sheet(file_path, sheet_name)
     # Save the workbook
     wb.save(file_path)
     
