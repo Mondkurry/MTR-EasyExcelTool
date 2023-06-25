@@ -16,6 +16,14 @@ def populate_array_from_excel(file_path, sheet_name):	# Function to copy Sheet1 
     for row in sheet.iter_rows(values_only=True):		# Iterate over the rows and columns and append values to the array
         result_array.append(list(row))
 
+    # Remove cells from the bottom of the array that only contain None values   
+    while True:
+        if result_array[-1] == [None] * len(result_array[-1]):
+            result_array.pop()
+        else:
+            break
+
+    print_array(result_array)        
     return result_array     #Return Array Values
 
 
@@ -46,7 +54,6 @@ def get_unique_rows(input_array, check_columns):		# Removes all non-unique rows 
 
     for row in Array_OnlyCheckColumns:
         if row not in unique_rows_onlyCheckColumns:
-            # index_of_unique.append(index)
             unique_rows_onlyCheckColumns.append(row)
             unique_rows.append(input_array[index])
         index += 1
@@ -56,7 +63,7 @@ def get_unique_rows(input_array, check_columns):		# Removes all non-unique rows 
     return index_of_unique, unique_rows
 
 
-def process_array(file_path, sheet_name, columns_to_check):
+def process_array(file_path, sheet_name, columns_to_check): # Just a general compilation of all of the prior functions, Takes in args and returns a processed sheet as well as indices of where the values need to go back
     DefaultState_Sheet = populate_array_from_excel(file_path, sheet_name)
     ProcessedState_UniqueIndices, ProcessedState_Sheet = get_unique_rows(DefaultState_Sheet, columns_to_check)
     

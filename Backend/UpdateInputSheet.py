@@ -9,17 +9,17 @@ def update_input_sheet(file_path, sheet_name, array):
     if sheet_name in wb.sheetnames:
         sheet = wb[sheet_name]
         sheet.delete_rows(1, sheet.max_row)
-        print(1)
+        print(f"Writing to existing Sheet: {sheet_name}")
     else:
         sheet = wb.create_sheet(title=sheet_name)
-        print(2)
+        print(f"Creating new Sheet: {sheet_name}")
 
     # Add the array values to the sheet
     for row in array:
         sheet.append(row)
     
         # Save the workbook
-    wb.save(file_path)
+    wb.save(file_path)  
 
 
 
@@ -54,11 +54,11 @@ def reformat_excel_sheet(file_path, sheet_name):
     workbook.save(file_path)
 
 
-def process_and_update_userinput_sheet(file_path, default_sheet_name, userinput_sheet_name, columns_to_check):
+def process_and_update_userinput_sheet(file_path, default_sheet_name, input_sheet_name, columns_to_check):
     ProcessedState_InputSheet, ProcessedState_UniqueIndices = process_array(
         file_path, default_sheet_name, columns_to_check)
     
-    update_input_sheet(file_path, userinput_sheet_name,
+    update_input_sheet(file_path, input_sheet_name,
                        ProcessedState_InputSheet)
     
-    reformat_excel_sheet(file_path, userinput_sheet_name)
+    reformat_excel_sheet(file_path, input_sheet_name)
