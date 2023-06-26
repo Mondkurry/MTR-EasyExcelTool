@@ -112,7 +112,7 @@ class MTR_EasyExcel_Tool(tk.Tk):
                                     hover = DISABLED,
                                     command=self.open_file
                                     )
-        self.import_button.grid(row=3, column=0,  pady=10, padx=25)
+        self.import_button.grid(row=3, column=0,  pady=0, padx=25)
 
         self.CurrentFileText = customtkinter.CTkLabel(self,
                                                     text="Current File: ",
@@ -121,7 +121,7 @@ class MTR_EasyExcel_Tool(tk.Tk):
                                                     fg_color=containerColor,
                                                     text_color=textColor,
                                                     anchor="nw")
-        self.CurrentFileText.grid(row=4, column=0, pady=10, padx=10)
+        self.CurrentFileText.grid(row=4, column=0, pady=5, padx=10)
 
     def set_file_path(self, set_file_path):
         self.file_path = set_file_path
@@ -131,6 +131,12 @@ class MTR_EasyExcel_Tool(tk.Tk):
     
     def get_simple_file_path(self):
         return self.file_path.split("/")[-1]
+    
+    def set_sheet_name(self, set_sheet_name):
+        self.sheet_name = set_sheet_name
+    
+    def get_sheet_name(self):
+        return self.sheet_name
 
     def open_file(self):
         file = fd.askopenfilename(filetypes=[("Excel files", "*.xlsx")])
@@ -139,12 +145,35 @@ class MTR_EasyExcel_Tool(tk.Tk):
         self.currentFile = customtkinter.CTkLabel(self,
                                                         text=self.get_simple_file_path(),
                                                         width = 150,
-                                                        height = 30,
-                                                        font=("Arial", 16, "bold"),
+                                                        font=("Arial", 12, "bold"),
                                                         fg_color=containerColor,
                                                         text_color=textColor,
-                                                        wraplength=150,)
-        self.currentFile.grid(row=5, column=0, pady=10, padx=10)
+                                                        wraplength=150,
+                                                        anchor="n")
+        self.currentFile.grid(row=5, column=0, pady=5, padx=10)
+
+        self.sheet_name_input = customtkinter.CTkEntry(self,
+                                                        placeholder_text="Sheet Name",
+                                                        width = 75,
+                                                        height = 15,
+                                                        font=("Arial", 10, "bold"),
+                                                        fg_color=containerColor,
+                                                        text_color=textColor,
+                                                        )
+        self.sheet_name_input.grid(row=6, column=0, pady=10, padx=10)
+        print(self.sheet_name_input.get())
+
+        self.confirm_sheet_name_button = customtkinter.CTkButton(self, 
+                                    height = 20,
+                                    width=75,
+                                    text="Confirm Sheet Name",
+                                    font=("Arial", 12, "bold"), 
+                                    fg_color = textColor,
+                                    text_color=backgroundColor,
+                                    hover = DISABLED,
+                                    command=self.set_sheet_name(self.sheet_name_input.get()),
+                                    )
+        self.confirm_sheet_name_button.grid(row=7, column=0,  pady=0, padx=25, sticky="n")
 
         # for x in range(0, self.get_columns_in_file()):
         #     self.columnButton = customtkinter.CTkButton(self, 
