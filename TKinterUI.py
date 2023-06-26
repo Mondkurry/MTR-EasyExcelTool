@@ -21,37 +21,97 @@ class MTR_EasyExcel_Tool(tk.Tk):
         self.geometry("800x800")
         self.resizable(False, False)
         customtkinter.set_appearance_mode("dark")
+        self.grid_columnconfigure((0,1,2,4), weight=1)
+        self.grid_rowconfigure(0, weight=1)
+        self.grid_rowconfigure(1, weight=2)
+        self.grid_rowconfigure(2, weight=2)
+        self.grid_rowconfigure(3, weight=3)
+        self.grid_rowconfigure(4, weight=2)
+        self.grid_columnconfigure(0, weight=1, uniform="fred")
 
-        self.Title = tk.Label(self, text="MTR EasyExcel Tool: Tool for stream lining Valve Lists!", font=("Arial", 20))
-        self.Title.grid(row=0, column=0, pady=10, padx=10)
+        self.Title = customtkinter.CTkLabel(self, text="MTR EasyExcel Tool", 
+                                            font=("Arial", 28, "bold"), 
+                                            fg_color=containerColor,
+                                            text_color=textColor,
+                                            corner_radius=10,
+                                            height=((1/8) *800),
+                                            width=(3/4)*800,
+                                            padx=10,
+                                            pady=10,)
+        self.Title.grid(row=0, column=1, pady=10, padx=10, rowspan=1, columnspan=3)
+        
+
 
         self.importButtonInstructions = customtkinter.CTkLabel(self, 
-                                                               text="Enter the file path of the Excel file you want to process:", 
-                                                               font=("Arial", 12), 
+                                                               text="Import File:", 
+                                                               font=("Arial", 20, "bold"), 
                                                                corner_radius=10, 
                                                                fg_color=containerColor,
                                                                text_color=textColor,
-                                                               height=35,
-                                                               width = 500,
+                                                               height=(3/8)*800,
+                                                               width = 1/4*800,
                                                                padx = 10,
-                                                               anchor = "w")
-        
-        self.importButtonInstructions.grid(row=1, column=0, pady=10, padx=10, sticky = "W", columnspan=2)
-        
-        # code to import a file using a button in tkinter labeled "import" the name of the current imported file should be printed right next to the button
-        # self.import_button = tk.Button(self, text="Import", command=self.openFile)
-        self.import_button = customtkinter.CTkButton(self, 
-                                    width = 80,
-                                    height = 25,
-                                    text="Import",
-                                    corner_radius=5,
-                                    fg_color = textColor,
-                                    text_color=backgroundColor,
-                                    )
-        self.import_button.grid(row=1, column=1, pady=10, padx=10, sticky = "E")
+                                                               pady = 10,
+                                                               anchor="n")
+        self.importButtonInstructions.grid(row=0, column=0,  pady=10, padx=10, rowspan=3, columnspan=1)
 
-        self.sheetNameText = tk.Label(self, text="Enter the name of the sheet you want to process:", font=("Arial", 8))
-        self.sheetNameText.grid(row=1, column=3, pady=10, padx=10)
+        self.Pick_col_section = customtkinter.CTkLabel(self,
+                                                        text="Pick Columns",
+                                                        font=("Arial", 16, "bold"),
+                                                        corner_radius=10,
+                                                        fg_color=containerColor,
+                                                        text_color=textColor,
+                                                        height = (1/4)*800,
+                                                        width = (3/4)*800,
+                                                        padx=10,
+                                                        pady=10,
+                                                        anchor="n")
+        self.Pick_col_section.grid(row=1, column=1,  pady=10, padx=10, rowspan=2, columnspan=3)
+
+        self.File_Preview = customtkinter.CTkLabel(self,
+                                                        text="File Preview",
+                                                        font=("Arial", 16, "bold"),
+                                                        corner_radius=10,
+                                                        fg_color=containerColor,
+                                                        text_color=textColor,
+                                                        height = 6/16*800,
+                                                        width = 800,
+                                                        padx=10,
+                                                        pady=10,
+                                                        anchor="n")
+        self.File_Preview.grid(row=3, column=0,  pady=10, padx=10, columnspan=4)
+
+        self.File_Preview = customtkinter.CTkLabel(self,
+                                                        text="Populate Fields Buttons",
+                                                        font=("Arial", 16, "bold"),
+                                                        corner_radius=10,
+                                                        fg_color=containerColor,
+                                                        text_color=textColor,
+                                                        height = 1/4*800,
+                                                        width = 800,
+                                                        padx=10,
+                                                        pady=10,
+                                                        anchor="n")
+        self.File_Preview.grid(row=4, column=0,  pady=10, padx=10, columnspan=4)
+        
+        # # code to import a file using a button in tkinter labeled "import" the name of the current imported file should be printed right next to the button
+        # self.import_button = customtkinter.CTkButton(self, 
+        #                             width = 80,
+        #                             height = 30,
+        #                             text="Import",
+        #                             font=("Arial", 16, "bold"), 
+        #                             corner_radius=5,
+        #                             fg_color = textColor,
+        #                             text_color=backgroundColor,
+                                    
+        #                             )
+        # self.import_button.grid(row=1, column=0,  pady=50, padx=10)
+
+        # self.sheetNameText = tk.Label(self, text="Current File:", font=("Arial", 8))
+        # self.sheetNameText.grid(row=2, column=0, pady=10, padx=10)
+
+        # self.sheetNameText = tk.Label(self, text="Current File:", font=("Arial", 8))
+        # self.sheetNameText.grid(row=3, column=0, pady=10, padx=10)
 
 
 def main():
