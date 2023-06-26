@@ -22,8 +22,7 @@ def populate_array_from_excel(file_path, sheet_name):	# Function to copy Sheet1 
             result_array.pop()
         else:
             break
-
-    print_array(result_array)        
+      
     return result_array     #Return Array Values
 
 
