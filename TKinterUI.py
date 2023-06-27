@@ -99,7 +99,7 @@ class MTR_EasyExcel_Tool(tk.Tk):
                                                                padx = 10,
                                                                pady = 10,
                                                                anchor="n")
-        self.importButtonInstructions.grid(row=0, column=0,  pady=10, padx=10, rowspan=12, columnspan=4)
+        self.importButtonInstructions.grid(row=0, column=0,  pady=10, padx=10, rowspan=6, columnspan=4)
 
         self.import_button = customtkinter.CTkButton(self, 
                                     height = 30,
@@ -123,6 +123,23 @@ class MTR_EasyExcel_Tool(tk.Tk):
                                                     anchor="nw")
         self.CurrentFileText.grid(row=4, column=0, pady=5, padx=10)
 
+        self.number_col = []
+        for i in range(12):
+            self.checkBox = customtkinter.CTkCheckBox(self, 
+                                                        width=5,
+                                                        height=5,
+                                                        bg_color=containerColor,
+                                                        text="",
+                                                        # offvalue=0,
+                                                        offvalue=self.set_col(i),
+                                                        )
+            self.checkBox.grid(row=5, column=(5+i), pady=10, padx=10)
+        print(self.number_col)  
+    
+    def set_col(self, col):
+        self.number_col.append(col)
+        print(self.number_col)
+
     def set_file_path(self, set_file_path):
         self.file_path = set_file_path
     
@@ -132,11 +149,12 @@ class MTR_EasyExcel_Tool(tk.Tk):
     def get_simple_file_path(self):
         return self.file_path.split("/")[-1]
     
-    def set_sheet_name(self, set_sheet_name):
-        self.sheet_name = set_sheet_name
+    def set_sheet_name(self):
+        self.default_sheet_name = self.sheet_name_input.get()
+        print(self.get_sheet_name())
     
     def get_sheet_name(self):
-        return self.sheet_name
+        return self.default_sheet_name
 
     def open_file(self):
         file = fd.askopenfilename(filetypes=[("Excel files", "*.xlsx")])
@@ -161,7 +179,6 @@ class MTR_EasyExcel_Tool(tk.Tk):
                                                         text_color=textColor,
                                                         )
         self.sheet_name_input.grid(row=6, column=0, pady=10, padx=10)
-        print(self.sheet_name_input.get())
 
         self.confirm_sheet_name_button = customtkinter.CTkButton(self, 
                                     height = 20,
@@ -171,36 +188,34 @@ class MTR_EasyExcel_Tool(tk.Tk):
                                     fg_color = textColor,
                                     text_color=backgroundColor,
                                     hover = DISABLED,
-                                    command=self.set_sheet_name(self.sheet_name_input.get()),
+                                    command=self.set_sheet_name
                                     )
         self.confirm_sheet_name_button.grid(row=7, column=0,  pady=0, padx=25, sticky="n")
-
-        # for x in range(0, self.get_columns_in_file()):
-        #     self.columnButton = customtkinter.CTkButton(self, 
-        #                             height = 30,
-        #                             width=150,
-        #                             text="Column " + str(x+1),
-        #                             font=("Arial", 16, "bold"), 
-        #                             corner_radius=5,
-        #                             fg_color = textColor,
-        #                             text_color=backgroundColor,
-        #                             hover = DISABLED,
-        #                             command=lambda x=x: self.set_columns(x)
-        #                             )
-        #     self.columnButton.grid(row=4, column=x+1,  pady=10, padx=25)
 
     #--------------------------------------------------------------------------#
     #------------------------ COLUMN SELECTION MODULE -------------------------#
     #--------------------------------------------------------------------------#
 
-    # def get_columns_in_file(self):
-    #     self.array = populate_array_from_excel(self.get_file_path())
-    #     self.columns = len(self.array[0])
-    #     print(self.columns)
-    #     return self.columns
+    def make_columns(self):
+        num_columns_in_file = len(populate_array_from_excel(self.get_file_path(), self.get_sheet_name())[0])
+        for i in range(num_columns_in_file):
+            print(i)
+
+                                                         
     
-    def set_columns(self, columns):
-        self.columns = columns
+    
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 def main():
