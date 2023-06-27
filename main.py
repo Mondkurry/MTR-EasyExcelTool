@@ -16,7 +16,7 @@ default_sheet_name = 'Sheet1'
 input_sheet_name = 'Input Sheet'
 output_sheet_name = 'Output Sheet'
 
-input_columns_to_check = [2,3]	# Specify the columns to concatenate (e.g., A=1, B=2, D=4
+input_columns_to_check = [2,3,4,9]	# Specify the columns to concatenate (e.g., A=1, B=2, D=4
 
 
 def print_array(input_array):

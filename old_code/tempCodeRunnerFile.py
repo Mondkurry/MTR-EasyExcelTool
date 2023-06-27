@@ -25,7 +25,7 @@ class MTR_EasyExcel_Tool(tk.Tk):
         self.set_file_path(self.default_file_path)
         self.title("MTR EasyExcel Tool")
         self.geometry("800x800")
-        #self.resizable(False, False)
+        self.resizable(False, False)
         customtkinter.set_appearance_mode("dark")
 
         self.grid_columnconfigure((0,1,2,4,5,6,7,8,9,10,11,12,13,14,15,16), weight=0)
@@ -122,19 +122,6 @@ class MTR_EasyExcel_Tool(tk.Tk):
                                                     text_color=textColor,
                                                     anchor="nw")
         self.CurrentFileText.grid(row=4, column=0, pady=5, padx=10)
-
-        self.number_col = []
-        for i in range(12):
-            self.checkBox = customtkinter.CTkCheckBox(self, 
-                                                        width=5,
-                                                        height=5,
-                                                        bg_color=containerColor,
-                                                        text="",
-                                                        # offvalue=0,
-                                                        offvalue=self.set_col(i),
-                                                        )
-            self.checkBox.grid(row=5, column=(5+i), pady=10, padx=10)
-        print(self.number_col)  
     
     def set_col(self, col):
         self.number_col.append(col)
@@ -196,33 +183,25 @@ class MTR_EasyExcel_Tool(tk.Tk):
     #------------------------ COLUMN SELECTION MODULE -------------------------#
     #--------------------------------------------------------------------------#
 
+    def get_num_col(self):
+        self.number_col = len(populate_array_from_excel(self.get_file_path(), self.get_sheet_name())[1])
+        print(self.number_col)
+        return self.number_col
+
     def make_columns(self):
-        num_columns_in_file = len(populate_array_from_excel(self.get_file_path(), self.get_sheet_name())[0])
-        for i in range(num_columns_in_file):
-            print(i)
-
-                                                         
+        for i in range(self.get_num_col()):
+            self.checkBox = customtkinter.CTkCheckBox(self, 
+                                                        width=5,
+                                                        height=5,
+                                                        bg_color=containerColor,
+                                                        text=i+1,
+                                                        offvalue=0,
+                                                        onvalue=self.set_col(i),
+                                                        )
+            self.checkBox.grid(row=4, column=(5+i), pady=10, padx=10, sticky="s")
+        print(self.number_col)  
     
     
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-def main():
-    window = MTR_EasyExcel_Tool()
-    window.mainloop()
-
-if __name__ == "__main__":
-    main()
 
 
