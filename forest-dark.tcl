@@ -12,10 +12,10 @@ namespace eval ttk::theme::forest-dark {
     array set colors {
         -fg             "#eeeeee"
         -bg             "#313131"
-        -disabledfg     "#595959"
+        -disabledfg     "#1c9bdc"
         -disabledbg     "#ffffff"
         -selectfg       "#ffffff"
-        -selectbg       "#217346"
+        -selectbg       "#1c9bdc"
     }
 
     proc LoadImages {imgdir} {
