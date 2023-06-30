@@ -17,7 +17,7 @@ root.resizable(False, False)
 style = ttk.Style(root)
 root.tk.call('source', 'forest-light.tcl')
 root.tk.call('source', 'forest-dark.tcl')
-style.theme_use('forest-dark')  
+style.theme_use('forest-light')  
 
 defaultpadx = 10
 defaultpady = 7.5
