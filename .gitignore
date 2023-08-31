@@ -1,2 +1,7 @@
 *.png
 *.tcl
+
+# Ignore all files in the .vscode directory
+.vscode/*
+
+```
