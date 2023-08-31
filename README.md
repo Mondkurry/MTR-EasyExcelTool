@@ -1,5 +1,15 @@
 # MTR-EasyExcelTool
+#### A Tool to make Line Lists, Valve Lists, and other Excel based spreadsheets quicker
 _made by Aryan Mondkar 2023 Summer_
+
+## Dependencies
+
+To use this project, you'll need to download the `forest-ttk-theme` from the [Forest-ttk-theme GitHub repository](https://github.com/rdbende/Forest-ttk-theme).
+
+1. Go to the repository: [Forest-ttk-theme](https://github.com/rdbende/Forest-ttk-theme).
+2. Download the `forest-dark` folder as well as `forest-dark.tcl` if you want a dark theme. If you want a light theme download the light versions and update any code that refers to the dark theme.
+3. Add the folder to the project directory and update any dependencies
+4. Profit
 
 A Tool to make Line Lists, Valve Lists, and other Excel based spreadsheets quicker
 ## How it Works
